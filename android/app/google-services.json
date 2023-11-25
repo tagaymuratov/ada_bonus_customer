@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "757327945101",
+    "project_id": "ada-application",
+    "storage_bucket": "ada-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757327945101:android:269b0c0c48c8dc3e7131c4",
+        "android_client_info": {
+          "package_name": "com.kezign.ada_bonus_customer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKIEW7yfQmWVDUBVOWel9_uf6fVWI3fPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
