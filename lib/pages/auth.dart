@@ -1,4 +1,7 @@
+import 'package:ada_bonus_customer/constants.dart';
+import 'package:ada_bonus_customer/pages/bonus.dart';
 import 'package:ada_bonus_customer/providers/provider_auth.dart';
+import 'package:ada_bonus_customer/providers/provider_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,77 +13,78 @@ class PageAuth extends StatefulWidget {
 }
 
 class _PageAuthState extends State<PageAuth> {
+  final ScrollController _scrollController = ScrollController();
+  late final List<Widget> screens;
+  final List<String> titles = [
+    'Быстрее будущего'
+  ];
+  
+  @override
+  void initState(){
+    super.initState();
+    screens = [
+      const PageBonus(),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    //final pa = Provider.of<ProviderAuth>(context, listen: false);
-    return context.read<ProviderAuth>().isSignedIn ? 
-      Container() : welcomeScreen(context);
+    return context.watch<ProviderAuth>().isSignedIn ? screenManager(context) : welcomeScreen(context);
+  }
+
+  @override
+  void dispose(){
+    _scrollController.dispose();
+    super.dispose();
   }
 
   Widget welcomeScreen(BuildContext context){
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const SizedBox(height: 1),
-            Column(
-              children: [
-                Image.asset(
-                  'assets/imgs/logo_green.png',
-                  width: MediaQuery.of(context).size.width - 128,
+      body: context.watch<ProviderAuth>().isLoading ? loader : Container(
+        decoration: gradient,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+        child: SafeArea(
+          child: Column(
+            children: [
+              const Spacer(),
+              Image.asset(
+                'assets/imgs/logo_green.png',
+                width: MediaQuery.of(context).size.width / 2,
+              ),
+              const Spacer(),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed:() => Navigator.pushNamed(context, '/reg'),
+                  child: const Text('Начать'),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
-                  child: Text(
-                    'Cкидки на каждую покупку или доставку',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                )
-              ],
-            ),
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: FilledButton(
-                          onPressed: (){
-                            Navigator.pushNamed(context, '/reg');
-                          }, 
-                          child: const Text('Начать'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Продолжая вы соглашаетесь с пользовательским соглашением',
-                    style: Theme.of(context).textTheme.bodySmall,
-                    textAlign: TextAlign.center,
-                  ),
-                )
-              ],
-            )
-          ],
-        )
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Продолжая вы соглашаетесь с пользовательским соглашением',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white54),
+                textAlign: TextAlign.center,
+              )
+            ],
+          )
+        ),
       ),
     );
   }
 
-  Widget screen(){
+  Widget screenManager(BuildContext context){
+    int index = context.watch<ProviderPages>().pageIndex;
     return Scaffold(
-      body: ListView(
-        children: [
-          Container(color: Colors.pink,width: 200,height: 200,),
-          Container(color: Colors.amber,width: 200,height: 200,),
-        ],
+      appBar: AppBar( 
+        centerTitle: false,
+        title: Text(titles[index]),
       ),
+      body: SafeArea(
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers:[SliverToBoxAdapter(child: screens[index])]
+        ),
+      )
     );
   }
 }

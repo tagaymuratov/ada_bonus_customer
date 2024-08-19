@@ -34,18 +34,21 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  shared_preferences: ^2.2.2
-  firebase_core: ^2.23.0
-  firebase_auth: ^4.14.1
-  cloud_firestore: ^4.13.2
-  provider: ^6.1.1
-  pinput: ^3.0.1
+  shared_preferences: 
+  google_fonts:
+  firebase_core: 
+  firebase_auth: 
+  cloud_firestore: 
+  provider: 
+  pinput: 
+  qr_flutter: 
+  flutter_native_splash: ^2.4.0
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_lints: ^3.0.1
+  flutter_lints: 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -68,18 +71,9 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  fonts:
-    - family: Montserrat
-      fonts:
-        - asset: assets/fonts/Montserrat-Bold.ttf
-        - asset: assets/fonts/Montserrat-Regular.ttf
-        - asset: assets/fonts/Montserrat-Medium.ttf
-          style: normal
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  color: "#000000"
+  image: assets/imgs/logo_green.png
+  android_12:
+    color: "#000000"
+    image: assets/imgs/logo_green.png
